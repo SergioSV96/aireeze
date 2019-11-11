@@ -1,6 +1,6 @@
 
-# Created by https://www.gitignore.io/api/git,linux,python,windows,pycharm+all,jupyternotebooks,data
-# Edit at https://www.gitignore.io/?templates=git,linux,python,windows,pycharm+all,jupyternotebooks,data
+# Created by https://www.gitignore.io/api/git,linux,python,windows,pycharm+all,jupyternotebooks,data,venv
+# Edit at https://www.gitignore.io/?templates=git,linux,python,windows,pycharm+all,jupyternotebooks,data,venv
 
 ### Data ###
 *.csv
@@ -251,6 +251,25 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+### venv ###
+# Virtualenv
+# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]cripts
+pyvenv.cfg
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+pip-selfcheck.json
+
 ### Windows ###
 # Windows thumbnail cache files
 Thumbs.db
@@ -277,4 +296,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.gitignore.io/api/git,linux,python,windows,pycharm+all,jupyternotebooks,data
+# End of https://www.gitignore.io/api/git,linux,python,windows,pycharm+all,jupyternotebooks,data,venv
