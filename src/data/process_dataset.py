@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import urllib.request
-import json
 import os
-import datetime
 import pandas as pd
 import numpy as np
 
@@ -64,28 +61,12 @@ def process_air_quality(filepath: str) -> pd.DataFrame:
     return df
 
 
-def download_data(dataset: dict):
-    ''' Downloads raw data from Madrid's City Council Open Data website into 'data/raw'.
-    '''
-    logger = logging.getLogger(__name__)
-    logger.info('Downloading data-set from Madrid Open Data website...')
-
-    for dataset_type, value in dataset.items():
-        for year, url in value.items():
-            filepath = f'data/raw/{dataset_type}_{year}.csv'
-            if os.path.isfile(filepath):
-                logger.info(f'File {filepath} already exists')
-            else:
-                urllib.request.urlretrieve(url, filepath)
-                logger.info(f'Succesfully downloaded {filepath} from {url}')
-
-
 process_methods = {
     'air-quality': process_air_quality
 }
 
 
-def process_data(dataset: dict):
+def process_data():
     ''' Process raw data into 'data/processed'
     '''
     logger = logging.getLogger(__name__)
@@ -93,21 +74,18 @@ def process_data(dataset: dict):
 
     interim_path = 'data/interim'
 
-    for subdir, dirs, files in os.walk('data/raw'):
+    for subdir, _, files in os.walk('data/raw'):
         for file in files:
             filepath = os.path.join(subdir, file)
             if filepath.endswith('.csv'):
                 logger.info(f'Processing {filepath} ...')
                 dataset_type = file.split('_')[0]
-                process_methods[dataset_type](filepath).to_csv(os.path.join(interim_path, file), index=False)
+                process_methods[dataset_type](filepath).to_csv(
+                    os.path.join(interim_path, file), index=False)
 
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s : %(levelname)s : %(filename)s : %(message)s'
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 
-    with open('src/data/dataset.json', 'r') as f:
-        dataset = json.load(f)
-
-    download_data(dataset)
-    process_data(dataset)
+    process_data()
