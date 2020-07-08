@@ -56,9 +56,35 @@ def process_air_quality(filepath: str) -> pd.DataFrame:
     # Unname the dataframe
     df.columns.name = None
     # Sort by date and station
-    df.sort_values(by=['date', 'station'], inplace=True)
+    df.sort_values(by=['station', 'date'], inplace=True)
 
     return df
+
+
+def process_weather(filepath: str) -> pd.DataFrame:
+    # Read file
+    df = pd.read_csv(filepath, decimal=',')
+    # Drop several columns, we don't need them anymore
+    df.drop(columns=['nombre', 'provincia', 'horatmin', 'horatmax',
+                     'horaPresMax', 'horaPresMin', 'horaracha'], inplace=True)
+    # Translate columns
+    df.rename(columns={
+        'fecha': 'date',
+        'indicativo': 'station',
+        'altitud': 'altitude',
+        'tmed': 'average_temperature',
+        'prec': 'rainfall',
+        'tmin': 'minimum_temperature',
+        'tmax': 'maximum_temperature',
+        'dir': 'wind_direction',
+        'velmedia': 'average_wind_speed',
+        'racha': 'maximum_wind_speed',
+        'sol': 'maximum_ultraviolet_index',
+        'presMax': 'maximum_pressure',
+        'presMin': 'minimum_pressure'
+    }, inplace=True)
+
+    print(df)
 
 
 process_methods = {
@@ -78,14 +104,19 @@ def process_data():
         for file in files:
             filepath = os.path.join(subdir, file)
             if filepath.endswith('.csv'):
-                logger.info(f'Processing {filepath} ...')
-                dataset_type = file.split('_')[0]
-                process_methods[dataset_type](filepath).to_csv(
-                    os.path.join(interim_path, file), index=False)
+                try:
+                    logger.info(f'Processing {filepath} ...')
+                    dataset_type = file.split('_')[0]
+                    process_methods[dataset_type](filepath).to_csv(
+                        os.path.join(interim_path, file), index=False)
+                except KeyError:
+                    logger.error(
+                        f"Can't process {filepath}, not method found for this file type")
 
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s : %(levelname)s : %(filename)s : %(message)s'
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 
-    process_data()
+    # process_data()
+    process_weather('data/raw/weather_2001.csv')
