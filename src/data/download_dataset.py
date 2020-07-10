@@ -81,7 +81,7 @@ def download_weather():
     while start_date <= today:
         year = start_date.year
         filepath = f'data/raw/weather_{year}.csv'
-        dataframes = []
+        dataframe_yearly = pd.DataFrame()
         for station_id in madrid_stations_id:
             url = f'https://opendata.aemet.es/opendata/api/valores/climatologicos/diarios/datos/fechaini/{start_date}T00:00:00UTC/fechafin/{end_date}T23:59:59UTC/estacion/{station_id}/'
             response = requests.request(
@@ -102,13 +102,13 @@ def download_weather():
 
             try:
                 data = requests.request('GET', response['datos']).json()
-                dataframes.append(pd.DataFrame(data))
+                dataframe_yearly = dataframe_yearly.append(
+                    pd.DataFrame(data), ignore_index=True)
                 logger.info(
                     f'Succesfully downloaded data for {year} from station {station_id}')
             except Exception as e:
                 logger.warning(f'No data for {station_id} for the year {year}')
 
-        dataframe_yearly = pd.concat(dataframes)
         dataframe_yearly.to_csv(f'data/raw/weather_{year}.csv',
                                 mode='w', index=False)
         start_date = datetime.date(start_date.year + 1, 1, 1)
