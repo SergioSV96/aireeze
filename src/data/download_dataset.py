@@ -117,9 +117,17 @@ def download_weather():
             end_date = today
 
 
+def clean_workspace():
+    directory = 'data/raw/'
+    for filename in os.listdir(directory):
+        if filename.endswith(".csv"):
+            os.remove(os.path.join(directory, filename))
+
+
 if __name__ == '__main__':
     log_fmt = '%(asctime)s : %(levelname)s : %(filename)s : %(message)s'
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 
+    clean_workspace()
     download_airquality()
     download_weather()
