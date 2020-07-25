@@ -106,7 +106,7 @@ def process_weather(filepath: str) -> pd.DataFrame:
     df["maximum_wind_speed"] = df["maximum_wind_speed"].apply(pd.to_numeric)
 
     # Sort by date and station
-    df.sort_values(by=['date', 'station '], inplace=True)
+    df.sort_values(by=['date', 'station'], inplace=True)
 
     return df
 
