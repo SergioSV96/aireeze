@@ -24,8 +24,12 @@ def download_airquality():
         year = data['year']
         url = data['url']
         filepath = f'data/raw/air-quality_{year}.csv'
-        urllib.request.urlretrieve(url, filepath)
-        logger.info(f'Succesfully downloaded {filepath} from {url}')
+        #urllib.request.urlretrieve(url, filepath)
+        r = requests.get(url)
+        with open(filepath, 'wb') as outfile:
+            outfile.write(r.content)
+        logger.info(
+            f'Succesfully downloaded air quality data {filepath} from {url}')
 
         '''
         if os.path.isfile(filepath):
@@ -105,7 +109,7 @@ def download_weather():
                 dataframe_yearly = dataframe_yearly.append(
                     pd.DataFrame(data), ignore_index=True)
                 logger.info(
-                    f'Succesfully downloaded data for {year} from station {station_id}')
+                    f'Succesfully downloaded weather data for {year} from station {station_id}')
             except Exception as e:
                 logger.warning(f'No data for {station_id} for the year {year}')
 
