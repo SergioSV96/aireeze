@@ -4,6 +4,7 @@ import logging
 import os
 import pandas as pd
 import numpy as np
+import glob
 
 
 def process_air_quality(filepath: str) -> pd.DataFrame:
@@ -118,7 +119,7 @@ process_methods = {
 
 
 def process_data():
-    ''' Process raw data into 'data/processed'
+    ''' Process raw data into 'data/interim'
     '''
     logger = logging.getLogger(__name__)
     logger.info('Reading data-sets...')
@@ -134,9 +135,31 @@ def process_data():
                     dataset_type = file.split('_')[0]
                     process_methods[dataset_type](filepath).to_csv(
                         os.path.join(interim_path, file), index=False)
+                    logger.info(
+                        f'Succesfully processed {dataset_type} data for {filepath}')
                 except KeyError:
                     logger.error(
                         f"Can't process {filepath}, not method found for this file type")
+
+
+def join_data():
+    ''' Process raw data into 'data/processed'
+    '''
+    logger = logging.getLogger(__name__)
+    logger.info('Reading data-sets...')
+
+    processed_path = 'data/processed'
+
+    for key in process_methods:
+        logger.info(f"Processing {key} files")
+        df_list = []
+        for file in glob.glob(f"data/interim/{key}*.csv"):
+            df_list.append(pd.read_csv(file))
+        logger.info(f"Joining all {key} data in a unique file")
+        df = pd.concat(df_list)
+        df.to_csv(os.path.join(processed_path, f"{key}.csv"), index=False)
+        logger.info(
+            f'Succesfully joined all {key} data in {processed_path}/{key}.csv')
 
 
 if __name__ == '__main__':
@@ -144,3 +167,4 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format=log_fmt)
 
     process_data()
+    join_data()
