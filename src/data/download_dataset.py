@@ -78,7 +78,7 @@ def download_weather():
 
     start_date = datetime.date(2001, 1, 1)
     end_date = datetime.date(2001, 12, 31)
-    today = datetime.date.today()
+    today = datetime.date(2021, 12, 31) # datetime.date.today()
 
     BACKOFF_FACTOR = 20  # seconds
 

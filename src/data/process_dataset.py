@@ -56,6 +56,9 @@ def process_air_quality(filepath: str) -> pd.DataFrame:
     df.rename(columns={'FECHA': 'date', 'ESTACION': 'station'}, inplace=True)
     # Unname the dataframe
     df.columns.name = None
+    # Order columns, first date and station, then the rest of the columns
+    df = df[['date', 'station'] + df.columns.drop(['date', 'station']).to_list()]
+
     # Sort by date and station
     df.sort_values(by=['date', 'station'], inplace=True)
 
@@ -156,7 +159,7 @@ def join_data():
         for file in glob.glob(f"data/interim/{key}*.csv"):
             df_list.append(pd.read_csv(file))
         logger.info(f"Joining all {key} data in a unique file")
-        df = pd.concat(df_list)
+        df = pd.concat(df_list).sort_values(by=['date', 'station'])
         df.to_csv(os.path.join(processed_path, f"{key}.csv"), index=False)
         logger.info(
             f'Succesfully joined all {key} data in {processed_path}/{key}.csv')

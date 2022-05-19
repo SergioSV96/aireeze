@@ -78,5 +78,9 @@
     {
         "year": 2020,
         "url": "https://datos.madrid.es/egob/catalogo/201410-10306609-calidad-aire-diario.csv"
+    },
+    {
+        "year": 2021,
+        "url": "https://datos.madrid.es/egob/catalogo/201410-10306612-calidad-aire-diario.csv"
     }
 ]
