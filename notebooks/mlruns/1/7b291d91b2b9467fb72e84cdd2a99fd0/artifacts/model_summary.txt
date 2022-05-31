@@ -1,0 +1,23 @@
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ lstm (LSTM)                 (None, 14, 50)            11200     
+                                                                 
+ dropout (Dropout)           (None, 14, 50)            0         
+                                                                 
+ lstm_1 (LSTM)               (None, 50)                20200     
+                                                                 
+ dropout_1 (Dropout)         (None, 50)                0         
+                                                                 
+ dense (Dense)               (None, 25)                1275      
+                                                                 
+ dropout_2 (Dropout)         (None, 25)                0         
+                                                                 
+ dense_1 (Dense)             (None, 5)                 130       
+                                                                 
+=================================================================
+Total params: 32,805
+Trainable params: 32,805
+Non-trainable params: 0
+_________________________________________________________________

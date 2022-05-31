@@ -1,0 +1,15 @@
+artifact_uri: file:///home/sergio/repos/aireeze/notebooks/mlruns/1/33288bd191e640329a4bd48e65e31af5/artifacts
+end_time: 1653783274032
+entry_point_name: ''
+experiment_id: '1'
+lifecycle_stage: active
+name: ''
+run_id: 33288bd191e640329a4bd48e65e31af5
+run_uuid: 33288bd191e640329a4bd48e65e31af5
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1653783204571
+status: 3
+tags: []
+user_id: sergio
