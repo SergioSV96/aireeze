@@ -4,7 +4,7 @@ aireeze
 Aireeze is my Software Engineering Thesis for predicting Madrid's air quality using artificial intelligence.
 
 
-Project Organization
+Project Structure
 ------------
 
     ├── LICENSE
@@ -19,9 +19,7 @@ Project Organization
     │
     ├── models             <- Trained and serialized models, model predictions, or model summaries
     │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
+    ├── notebooks          <- Jupyter notebooks.
     │
     ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
     │
@@ -31,25 +29,9 @@ Project Organization
     ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
     │                         generated with `pip freeze > requirements.txt`
     │
-    ├──── src              <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └──── test             <- Tests for this project.
+    └──── src              <- Source code for use in this project.
+        └── data           <- Scripts to download or generate data.
 
 --------
 
-Copyright 2019, Sergio Sánchez Vallés, All rights reserved.
+Copyright 2022, Sergio Sánchez Vallés, All rights reserved.
