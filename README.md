@@ -1,8 +1,6 @@
-aireeze
-==============================
-
 Aireeze is my Software Engineering Thesis for predicting Madrid's air quality using artificial intelligence.
-
+==============================
+![portada tfg](https://user-images.githubusercontent.com/20419761/200362460-33cd45fd-0a39-4283-bc0e-653e3b727b68.png)
 
 Project Structure
 ------------
